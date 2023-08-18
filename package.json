@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@prisma/client": "^5.1.1",
     "@radix-ui/react-icons": "^1.3.0",
     "@radix-ui/react-slot": "^1.0.2",
     "@supabase/auth-helpers-nextjs": "^0.7.4",
@@ -23,15 +24,14 @@
     "eslint-config-next": "13.4.13",
     "framer-motion": "^10.15.2",
     "next": "13.4.13",
+    "next-auth": "^4.23.1",
     "postcss": "8.4.27",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "^1.14.0",
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.6",
-    "typescript": "5.1.6"
-  },
-  "devDependencies": {
-    "supabase": "^1.86.0"
+    "typescript": "5.1.6",
+    "zustand": "^4.4.1"
   }
 }
