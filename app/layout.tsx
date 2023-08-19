@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
+import { NextAuthProvider } from "./providers";
 const inter = Inter({ subsets: ["latin"] });
 
 export const Helvetica = localFont({
@@ -42,7 +43,9 @@ export default function RootLayout({
       <body className={Helvetica.className}>
         <Toaster />
         <Header />
-        <main className="relative z-[5] pt-20">{children}</main>
+        <main className="relative z-[5] pt-20">
+          <NextAuthProvider>{children}</NextAuthProvider>
+        </main>
       </body>
     </html>
   );

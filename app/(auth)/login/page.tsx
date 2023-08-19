@@ -9,12 +9,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+  const { data: session } = useSession();
   const {
     register,
     handleSubmit,
@@ -25,7 +26,7 @@ export default function LoginPage() {
       password: "",
     },
   });
-
+  session && router.push('/')
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setLoading(true);
 
@@ -34,10 +35,11 @@ export default function LoginPage() {
       redirect: false,
     }).then((callback) => {
       setLoading(false);
+      console.log(callback);
 
       if (callback?.ok) {
         toast.success("Logged in");
-        router.refresh();
+        router.push("/");
       }
 
       if (callback?.error) {

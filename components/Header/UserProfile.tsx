@@ -1,13 +1,13 @@
-'use client';
+"use client";
 import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
 type Props = {};
 
 export const UserProfile = (props: Props) => {
-  // const { data: session } = useSession();
+  const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
@@ -19,8 +19,8 @@ export const UserProfile = (props: Props) => {
       <div
         onClick={toggleOpen}
         className="px-4 py-2 hover:shadow-md transition-all duration-300 cursor-pointer border border-slate-400/50 rounded-xl md:rounded-full">
-        {/* Hello, {session?.user?.name?.split(" ")[0] || "user"}! */}
-        Hello, user!
+        Hello, {session?.user?.name?.split(" ")[0] || "user"}!
+        {/* Hello, user! */}
       </div>
       {isOpen && (
         <div
@@ -33,20 +33,20 @@ export const UserProfile = (props: Props) => {
             top-12 
           ">
           <div className="flex flex-col cursor-pointer">
-            {/* {session ? (
+            {session ? (
               <>
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Settings</MenuItem>
                 <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
               </>
             ) : (
-            )} */}
-            <>
-              <MenuItem onClick={() => signIn()}>Log in</MenuItem>
-              <MenuItem onClick={() => router.push("/register")}>
-                Register
-              </MenuItem>
-            </>
+              <>
+                <MenuItem onClick={() => signIn()}>Log in</MenuItem>
+                <MenuItem onClick={() => router.push("/register")}>
+                  Register
+                </MenuItem>
+              </>
+            )}
           </div>
         </div>
       )}

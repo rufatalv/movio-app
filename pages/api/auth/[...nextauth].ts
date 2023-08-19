@@ -2,6 +2,7 @@ import NextAuth, { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcrypt";
+import prisma from "@/app/libs/prismadb";
 export const authOptions: AuthOptions = {
   providers: [
     GithubProvider({
@@ -37,7 +38,7 @@ export const authOptions: AuthOptions = {
         if (!isCorrectPassword) {
           throw new Error("Invalid credentials");
         }
-
+        
         return user;
       },
     }),
