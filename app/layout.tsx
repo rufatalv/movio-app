@@ -2,8 +2,8 @@ import Header from "@/components/Header/Header";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import localFont from 'next/font/local'
-
+import localFont from "next/font/local";
+import { Toaster } from "react-hot-toast";
 const inter = Inter({ subsets: ["latin"] });
 
 export const Helvetica = localFont({
@@ -40,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={Helvetica.className}>
+        <Toaster />
         <Header />
         <main className="relative z-[5] pt-20">{children}</main>
       </body>
