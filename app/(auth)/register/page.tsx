@@ -9,41 +9,35 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
-import { signIn } from "next-auth/react";
+import axios from "axios";
 import toast from "react-hot-toast";
 
 export default function LoginPage() {
+
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm<FieldValues>({
-    defaultValues: {
-      email: "",
-      password: "",
-    },
-  });
+  } = useForm();
+
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setLoading(true);
 
-    signIn("credentials", {
-      ...data,
-      redirect: false,
-    }).then((callback) => {
-      setLoading(false);
-
-      if (callback?.ok) {
-        toast.success("Logged in");
-        router.refresh();
-      }
-
-      if (callback?.error) {
-        toast.error(callback.error);
-      }
-    });
+    axios
+      .post("/api/register", data)
+      .then(() => {
+        toast.success("Registered!");
+      })
+      .catch((error: any) => {
+        toast.error("Error! Check your credentials!");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -51,12 +45,21 @@ export default function LoginPage() {
       <Card className="w-1/2 mx-auto relative mt-12 p-5">
         {loading && <Preloader />}
         <CardHeader className="text-4xl mb-6 font-bold">
-          Login to your account!
+          Register your account!
         </CardHeader>
         <CardContent>
           <form
             onSubmit={handleSubmit(onSubmit)}
             className="flex flex-col gap-5">
+            <Input
+              id="name"
+              className=""
+              htmlFor="name"
+              register={register}
+              placeholder="Enter your name"
+              type="text"
+              required
+            />
             <Input
               id="email"
               register={register}

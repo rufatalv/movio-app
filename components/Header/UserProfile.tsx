@@ -1,12 +1,15 @@
+'use client';
 import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 type Props = {};
 
 export const UserProfile = (props: Props) => {
   // const { data: session } = useSession();
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -40,7 +43,9 @@ export const UserProfile = (props: Props) => {
             )} */}
             <>
               <MenuItem onClick={() => signIn()}>Log in</MenuItem>
-              <MenuItem onClick={() => signIn()}>Register</MenuItem>
+              <MenuItem onClick={() => router.push("/register")}>
+                Register
+              </MenuItem>
             </>
           </div>
         </div>

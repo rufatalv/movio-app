@@ -29,7 +29,7 @@ function Input({
       />
       <label
         htmlFor={htmlFor}
-        className="absolute cursor-text font-sf text-base text-[#ABAFB1] top-1 peer-focus:top-0 peer-focus:left-3 peer-focus:scale-75 transition-all left-4 peer-placeholder-shown:left-4 peer-placeholder-shown:top-4">
+        className="absolute cursor-text font-sf text-base text-[#ABAFB1] top-1 peer-focus:top-2 peer-focus:left-0 peer-focus:scale-[0.75] transition-all left-4 peer-placeholder-shown:left-4 peer-placeholder-shown:top-4">
         {placeholder}
       </label>
     </div>
