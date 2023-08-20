@@ -4,7 +4,8 @@ import Link from "next/link";
 import { Button, buttonVariants } from "../ui/button";
 import { UserProfile } from "./UserProfile";
 import { signIn, useSession } from "next-auth/react";
-export default function Navlinks() {
+import { User } from "@prisma/client";
+export default function Navlinks({ currentUser }: { currentUser: User }) {
   const { isOpen, setIsOpen } = useNav();
 
   const variant = isOpen ? "opened" : "closed";
@@ -86,7 +87,7 @@ export default function Navlinks() {
             <Link href={"#"}>Top 100</Link>
           </li>
         </ul>
-        <UserProfile />
+        <UserProfile currentUser={currentUser} />
       </div>
     </>
   );

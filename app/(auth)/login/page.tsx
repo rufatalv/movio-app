@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 
 import Input from "@/components/Input";
 import Preloader from "@/components/ui/loadingUI";
-
+import { FiGithub } from "react-icons/fi";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
@@ -26,7 +26,7 @@ export default function LoginPage() {
       password: "",
     },
   });
-  session && router.push('/')
+  session && router.push("/");
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setLoading(true);
 
@@ -47,7 +47,16 @@ export default function LoginPage() {
       }
     });
   };
-
+  const handleGithub = () => {
+    signIn("github", { redirect: true, callbackUrl: "/" }).then(
+      (res) => {
+        toast.success("Successfully logged in");
+      },
+      (err) => {
+        toast.error(err.message);
+      }
+    );
+  };
   return (
     <div className="container mx-auto">
       <Card className="w-1/2 mx-auto relative mt-12 p-5">
@@ -79,6 +88,10 @@ export default function LoginPage() {
             />
             <Button type="submit" className="text-xl py-6">
               Login
+            </Button>
+            <Button onClick={handleGithub} className="flex gap-4 text-xl py-6">
+              Login with Github
+              <FiGithub />
             </Button>
           </form>
         </CardContent>

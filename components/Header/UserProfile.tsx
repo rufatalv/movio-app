@@ -3,11 +3,13 @@ import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { User } from "@prisma/client";
 
-type Props = {};
+type Props = {
+  currentUser: User;
+};
 
-export const UserProfile = (props: Props) => {
-  const { data: session } = useSession();
+export const UserProfile = ({ currentUser }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
 
@@ -19,8 +21,7 @@ export const UserProfile = (props: Props) => {
       <div
         onClick={toggleOpen}
         className="px-4 py-2 hover:shadow-md transition-all duration-300 cursor-pointer border border-slate-400/50 rounded-xl md:rounded-full">
-        Hello, {session?.user?.name?.split(" ")[0] || "user"}!
-        {/* Hello, user! */}
+        {/* Hello, {session?.user?.name?.split(" ")[0] || "user"}! */}
       </div>
       {isOpen && (
         <div
