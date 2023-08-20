@@ -1,10 +1,8 @@
 "use client";
+import { NextAuthProvider } from "@/app/providers";
 import useNav from "@/hooks/useNav";
 import Logo from "./Logo";
 import Navlinks from "./Navlinks";
-import getCurrentUser from "@/app/actions/getCurrentUser";
-import { NextAuthProvider } from "@/app/providers";
-import { User } from "@prisma/client";
 
 const Header: React.FC = () => {
   const { isOpen, setIsOpen } = useNav();
