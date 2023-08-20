@@ -1,11 +1,10 @@
 import useNav from "@/hooks/useNav";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Button, buttonVariants } from "../ui/button";
 import { UserProfile } from "./UserProfile";
-import { signIn, useSession } from "next-auth/react";
-import { User } from "@prisma/client";
-export default function Navlinks({ currentUser }: { currentUser: User }) {
+
+
+export default function Navlinks() {
   const { isOpen, setIsOpen } = useNav();
 
   const variant = isOpen ? "opened" : "closed";
@@ -87,7 +86,7 @@ export default function Navlinks({ currentUser }: { currentUser: User }) {
             <Link href={"#"}>Top 100</Link>
           </li>
         </ul>
-        <UserProfile currentUser={currentUser} />
+        <UserProfile />
       </div>
     </>
   );

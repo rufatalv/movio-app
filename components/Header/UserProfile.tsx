@@ -4,14 +4,16 @@ import MenuItem from "./MenuItem";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { User } from "@prisma/client";
+import getCurrentUser from "@/app/actions/getCurrentUser";
 
 type Props = {
   currentUser: User;
 };
 
-export const UserProfile = ({ currentUser }: Props) => {
+export const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
+  const currentUser = getCurrentUser();
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
@@ -34,7 +36,7 @@ export const UserProfile = ({ currentUser }: Props) => {
             top-12 
           ">
           <div className="flex flex-col cursor-pointer">
-            {session ? (
+            {currentUser ? (
               <>
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Settings</MenuItem>

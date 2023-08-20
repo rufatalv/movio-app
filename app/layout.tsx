@@ -39,12 +39,11 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentUser = getCurrentUser();
   return (
     <html lang="en">
       <body className={Helvetica.className}>
         <Toaster />
-        <Header currentUser={currentUser} />
+        <Header />
         <main className="relative z-[5] pt-20">
           <NextAuthProvider>{children}</NextAuthProvider>
         </main>
