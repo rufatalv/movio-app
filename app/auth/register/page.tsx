@@ -31,6 +31,7 @@ export default function LoginPage() {
       .post("/api/register", data)
       .then(() => {
         toast.success("Registered!");
+        router.push('/auth/login')
       })
       .catch((error: any) => {
         toast.error("Error! Check your credentials!");
