@@ -15,7 +15,6 @@ import toast from "react-hot-toast";
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const { data: session } = useSession();
   const {
     register,
     handleSubmit,
@@ -26,7 +25,6 @@ export default function LoginPage() {
       password: "",
     },
   });
-  session && router.push("/");
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setLoading(true);
 
@@ -40,6 +38,7 @@ export default function LoginPage() {
       if (callback?.ok) {
         toast.success("Logged in");
         router.push("/");
+        router.refresh();
       }
 
       if (callback?.error) {

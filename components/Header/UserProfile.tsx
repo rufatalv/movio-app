@@ -1,19 +1,14 @@
 "use client";
-import { User } from "@prisma/client";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
+import { NavbarProps } from "./Header";
 import MenuItem from "./MenuItem";
-import Image from "next/image";
 
-type Props = {
-  currentUser: User;
-};
-
-export const UserProfile = () => {
+export const UserProfile = ({ currentUser }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const { data: session } = useSession();
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value);
   }, []);
@@ -22,19 +17,23 @@ export const UserProfile = () => {
       <div
         onClick={toggleOpen}
         className="px-4 py-2 flex gap-2 items-center hover:shadow-md transition-all duration-300 cursor-pointer border border-slate-400/50 rounded-xl md:rounded-full">
-        {session?.user?.image && (
+        {currentUser && (
           <>
             <Image
               width={24}
               height={24}
               className="rounded-full"
               alt="avatar"
-              src={session?.user?.image}
+              src={
+                currentUser.image !== null
+                  ? currentUser.image
+                  : "/placeholder.jpg"
+              }
             />
             <hr className="w-[1px] opacity-40 h-full bg-slate-400 text-black" />
           </>
         )}
-        Hello, {session?.user?.name?.split(" ")[0] || "user"}!
+        Hello, {currentUser?.name?.split(" ")[0] || "user"}!
       </div>
       {isOpen && (
         <div
@@ -44,10 +43,10 @@ export const UserProfile = () => {
               bg-white 
               w-full
               overflow-hidden border border-slate-400/50 
-              ${session?.user?.image ? "top-12" : "top-12"}
+              top-12
           `}>
           <div className="flex flex-col cursor-pointer">
-            {session ? (
+            {currentUser ? (
               <>
                 <MenuItem>Profile</MenuItem>
                 <MenuItem>Settings</MenuItem>
