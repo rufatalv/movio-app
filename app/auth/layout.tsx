@@ -1,9 +1,11 @@
 "use client";
 
+import ClientOnly from "../ClientOnly";
+
 export default function AuthLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <>{children}</>;
+  return <ClientOnly>{children}</ClientOnly>;
 }
