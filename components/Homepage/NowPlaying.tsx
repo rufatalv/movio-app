@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Card, CardHeader } from "../ui/card";
+import { Card, CardContent, CardHeader } from "../ui/card";
 import NowPlayingSlider from "./NowPlayingSlider";
 interface INowPlayingProps {}
 
@@ -24,10 +24,12 @@ const NowPlaying: React.FC<INowPlayingProps> = async (props) => {
   const data = results;
   return (
     <Card className="container mt-12 border-slate-400/50">
-      <CardHeader>
+      <CardHeader className="">
         <h1 className="text-4xl font-medium">Now Playing</h1>
       </CardHeader>
-      <NowPlayingSlider data={data} />
+      <CardContent>
+        <NowPlayingSlider data={data} />
+      </CardContent>
     </Card>
   );
 };

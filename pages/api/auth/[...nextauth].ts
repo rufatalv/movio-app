@@ -8,7 +8,8 @@ export const authOptions: AuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
-    }),
+    
+    },),
     CredentialsProvider({
       name: "credentials",
       credentials: {
@@ -38,7 +39,7 @@ export const authOptions: AuthOptions = {
         if (!isCorrectPassword) {
           throw new Error("Invalid credentials");
         }
-        
+
         return user;
       },
     }),
