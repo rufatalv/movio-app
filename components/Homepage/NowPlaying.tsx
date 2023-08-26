@@ -23,14 +23,16 @@ const NowPlaying: React.FC<INowPlayingProps> = async (props) => {
   const { results } = await getData();
   const data = results;
   return (
-    <Card className="container mt-12 border-slate-400/50">
-      <CardHeader className="">
-        <h1 className="text-4xl font-medium">Now Playing</h1>
-      </CardHeader>
-      <CardContent>
-        <NowPlayingSlider data={data} />
-      </CardContent>
-    </Card>
+    <React.Suspense fallback={<p>Loading</p>}>
+      <Card className="container mt-12 border-slate-400/50">
+        <CardHeader className="">
+          <h1 className="text-4xl font-medium">Now Playing</h1>
+        </CardHeader>
+        <CardContent>
+          <NowPlayingSlider data={data} />
+        </CardContent>
+      </Card>
+    </React.Suspense>
   );
 };
 
