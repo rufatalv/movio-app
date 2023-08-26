@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
-import getCurrentUser from "./actions/getCurrentUser";
-import ClientOnly from "./ClientOnly";
 
 export const Helvetica = localFont({
   src: [
@@ -37,14 +35,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentUser = await getCurrentUser();
   return (
     <html lang="en">
       <body className={Helvetica.className}>
-        <ClientOnly>
           <Toaster />
-          <Header currentUser={currentUser} />
-        </ClientOnly>
+          <Header />
         <main className="relative z-[5] pt-20">{children}</main>
       </body>
     </html>
