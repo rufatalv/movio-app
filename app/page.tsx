@@ -16,20 +16,24 @@ async function getMovieData(query: string) {
     options
   );
   return (await res).json();
-} 
+}
 export default async function Home() {
-const {results: nowPlaying }: {results: IMovie[]} =  await getMovieData('now_playing')
-const {results: popularMovies }: {results: IMovie[]} =  await getMovieData('popular')
-const {results: topRatedMovies }: {results: IMovie[]} =  await getMovieData('top_rated')
+  const { results: nowPlaying }: { results: IMovie[] } = await getMovieData(
+    "now_playing"
+  );
+  const { results: popularMovies }: { results: IMovie[] } = await getMovieData(
+    "popular"
+  );
+  const { results: topRatedMovies }: { results: IMovie[] } = await getMovieData(
+    "top_rated"
+  );
 
   return (
     <>
       <section id="hero">
-        <Suspense fallback={<Preloader />}>
-          <Slider title="Now Playing" data={nowPlaying} />
-          <Slider title="Top Rated Movies" data={topRatedMovies} />
-          <Slider title="Popular Movies" data={popularMovies} />
-        </Suspense>
+        <Slider title="Now Playing" data={nowPlaying} />
+        <Slider title="Top Rated Movies" data={topRatedMovies} />
+        <Slider title="Popular Movies" data={popularMovies} />
       </section>
     </>
   );
