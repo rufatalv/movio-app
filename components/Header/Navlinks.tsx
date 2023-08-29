@@ -79,7 +79,7 @@ export default function Navlinks() {
             <Link href={"#"}>Home</Link>
           </li>
           <li className="text-xl font-medium lowercase">
-            <Link href={"#"}>Watch</Link>
+            <Link href={"/watch"}>Watch</Link>
           </li>
           <li className="text-xl font-medium lowercase">
             <Link href={"#"}>Top 100</Link>
