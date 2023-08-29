@@ -72,8 +72,8 @@ export default function Navlinks() {
       </div>
       <div
         className={`fixed w-3/5 sm:w-2/5  top-0 ${
-          isOpen ? "right-0" : "-right-full"
-        } md:static flex py-20 px-8 transition-all duration-300 md:p-0 md:backdrop-blur-0 md:h-auto md:border-0 border-l h-full justify-end md:justify-normal backdrop-blur-[5px] md:w-full md:items-center gap-5 md:gap-0 flex-col-reverse md:flex-row `}>
+          isOpen ? "right-0" : "-right-full "
+        } md:static flex py-20 px-8 h-screen transition-all duration-300 md:p-0 md:backdrop-blur-0 md:h-auto md:border-0 border-l justify-end md:justify-normal bg-white  md:w-full md:items-center gap-5 md:gap-0 flex-col-reverse md:flex-row `}>
         <ul className=" md:mx-auto flex flex-col md:flex-row  gap-5">
           <li className="text-xl font-medium lowercase">
             <Link href={"#"}>Home</Link>
