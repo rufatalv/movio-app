@@ -1,10 +1,13 @@
 "use client";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import Input from "@/components/Input";
+import MovieCard from "@/components/Watchpage/MovieCard";
+import Loading from "@/components/loading";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 export default function WatchPage() {
+  const [movieData, setMovieData] = useState([]);
   const {
     register,
     handleSubmit,
@@ -17,31 +20,31 @@ export default function WatchPage() {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     console.log(data);
   };
+
   return (
-    <div className="container mt-12 px-6 lg:px-0">
-      <Card>
-        <CardHeader>
-          <CardTitle>Search for movies</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            className="flex items-center gap-6">
-            <Input
-              id="movieName"
-              register={register}
-              required
-              htmlFor="movieName"
-              className="focus:outline-none relative w-full focus-visible:ring-0 border-slate-400/50"
-              type="text"
-              placeholder="Movie Name"
-            />
-            <Button type="submit" className="py-6 px-8 text-lg">
-              Search!
-            </Button>
-          </form>
-        </CardContent>
-      </Card>
+    <div className="container flex flex-col gap-4 mt-12 px-6 lg:px-0">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex items-center gap-6">
+        <Input
+          id="movieName"
+          register={register}
+          className=""
+          htmlFor="movieName"
+          placeholder="Movie name"
+          type="movieName"
+          required
+        />
+        <Button type="submit" className="py-6 px-8 text-lg">
+          Search!
+        </Button>
+      </form>
+      <div className="flex flex-wrap px-6 gap-2">
+        {/* {isLoading === true && <Loading />} */}
+        {/* data && */}
+          {/* // movieData.map((movie, idx) =>
+           <MovieCard data={movie} key={idx} />)} */}
+      </div>
     </div>
   );
 }

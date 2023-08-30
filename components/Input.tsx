@@ -12,7 +12,7 @@ function Input({
 }: {
   id: string;
   placeholder: string;
-  className: string;
+  className?: string;
   required?: boolean;
   register: UseFormRegister<FieldValues>;
   type: string;

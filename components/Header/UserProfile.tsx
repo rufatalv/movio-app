@@ -14,7 +14,7 @@ export const UserProfile = () => {
     <div className="flex -order-1 md:order-1 relative border-slate-400/50">
       <div
         onClick={toggleOpen}
-        className="px-4 py-2 flex gap-2 items-center hover:shadow-md transition-all duration-300 cursor-pointer border border-slate-400/50 rounded-xl md:rounded-full">
+        className="px-4 py-2 w-full md:w-fit flex gap-2 items-center hover:shadow-md transition-all duration-300 cursor-pointer border border-slate-400/50 rounded-xl md:rounded-full">
         <>
           <Image
             width={24}
@@ -25,7 +25,7 @@ export const UserProfile = () => {
           />
           <hr className="w-[1px] opacity-40 h-full bg-slate-400 text-black" />
         </>
-        Hello, user!
+        Hello, Guest!
       </div>
       {isOpen && (
         <div
