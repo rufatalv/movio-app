@@ -1,13 +1,53 @@
 "use client";
 import Input from "@/components/Input";
 import MovieCard from "@/components/Watchpage/MovieCard";
-import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { IMovie } from "@/types/types";
+import { useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { motion } from "framer-motion";
+import Preloader from "@/components/ui/loadingUI";
+import Pagination from "@/components/Pagination";
 
 export default function WatchPage() {
-  const [movieData, setMovieData] = useState([]);
+  const [movieData, setMovieData] = useState<IMovie[]>([]);
+  const [totalPagesData, setTotalPagesData] = useState<number>(0);
+  const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const baseApiUrl = "https://api.themoviedb.org/3";
+  const apiKey =
+    "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMGIyN2QzN2ExYmM1MDI4MGNlNmJlNDJkNjdhZTJiMiIsInN1YiI6IjYyOWM5N2VhOTkyZmU2MDA2NjgzMTE2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.i8SRfI-RxH1iiHMU2Bya4iPUUyezP-uqAqNYBvqiLwI";
+
+  const discoverUrl = `${baseApiUrl}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
+  const searchUrl = `${baseApiUrl}/search/movie?include_adult=false&language=en-US&page=1`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: apiKey,
+    },
+  };
+  useEffect(() => {
+    const apiUrl = searchTerm
+      ? `${searchUrl}&query=${searchTerm}`
+      : discoverUrl;
+    setLoading(true);
+    fetch(apiUrl, options)
+      .then((response) => {
+        return response.json();
+      })
+      .then((response) => {
+        console.log(response);
+        setMovieData(response.results);
+        setTotalPagesData(response.pages_total);
+      })
+      .then((response) => setLoading(false))
+      .catch((err) => console.error(err));
+  }, [searchTerm, discoverUrl, searchUrl]);
+  useEffect(() => {
+    console.log(searchTerm);
+  }, [searchTerm]);
   const {
     register,
     handleSubmit,
@@ -18,7 +58,7 @@ export default function WatchPage() {
     },
   });
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    console.log(data);
+    setSearchTerm(data.movieName);
   };
 
   return (
@@ -40,11 +80,15 @@ export default function WatchPage() {
         </Button>
       </form>
       <div className="flex flex-wrap px-6 gap-2">
-        {/* {isLoading === true && <Loading />} */}
-        {/* data && */}
-          {/* // movieData.map((movie, idx) =>
-           <MovieCard data={movie} key={idx} />)} */}
-      </div>
+        {loading ? (
+          <div className="h-[700px]">
+          <Preloader />
+          </div>
+          ) : (
+            movieData.map((movie, idx) => <MovieCard data={movie} key={idx} />)
+            )}
+          </div>
+      <Pagination totalPages={17} />
     </div>
   );
 }

@@ -1,7 +1,13 @@
-'use client';
+"use client";
 import { motion } from "framer-motion";
 
 export default function Loading() {
+  const object = {
+    name: "Gunay",
+    age: 29,
+    occupation: "Developer",
+  };
+
   return (
     <motion.div
       style={{

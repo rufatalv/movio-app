@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
+import { Suspense } from "react";
 
 export const Helvetica = localFont({
   src: [
@@ -38,9 +39,11 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={Helvetica.className}>
-          <Toaster />
-          <Header />
-        <main className="relative z-[5] pt-20">{children}</main>
+        <Toaster />
+        <Header />
+        <Suspense fallback={<h1 className="pt-20">Loading...</h1>}>
+          <main className="relative z-[5] pt-20">{children}</main>
+        </Suspense>
       </body>
     </html>
   );

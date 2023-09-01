@@ -3,7 +3,7 @@
 import { IMovie } from "@/types/types";
 import Image from "next/image";
 import { useRef, useState } from "react";
-import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
+import { BsArrowRight, BsChevronLeft, BsChevronRight } from "react-icons/bs";
 import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -15,6 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
+import { Button } from "./ui/button";
+import Link from "next/link";
 
 interface Props {
   data: IMovie[];
@@ -74,6 +76,13 @@ const Slider: React.FC<Props> = ({ data, title }: Props) => {
                   <h4 className="text-sm hidden md:flex md:text-lg font-light md:max-w-3xl">
                     {item.overview}
                   </h4>
+                </div>
+                <div className="absolute flex flex-col px-2 py-5 md:p-5 bottom-0 right-0 text-white z-[5]">
+                  <Link href={"/watch/" + item.id}>
+                    <Button variant={"secondary"} className="text-lg flex items-center gap-4">
+                      Watch <BsArrowRight />
+                    </Button>
+                  </Link>
                 </div>
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75"></div>
               </div>

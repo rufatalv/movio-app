@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { BsArrowRight } from "react-icons/bs";
 import { IMovie } from "@/types/types";
 import Image from "next/image";
+import Link from "next/link";
 interface Props {
   data: IMovie;
   key: number | string;
@@ -34,9 +35,11 @@ export default function MovieCard({ data }: Props) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button className="text-lg flex items-center gap-4">
-          Watch <BsArrowRight />
-        </Button>
+        <Link href={"/watch/" + data.id}>
+          <Button className="text-lg flex items-center gap-4">
+            Watch <BsArrowRight />
+          </Button>
+        </Link>
       </CardFooter>
     </Card>
   );
