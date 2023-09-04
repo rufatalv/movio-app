@@ -87,12 +87,12 @@ export default function WatchMoviePage({ params }: { params: { id: string } }) {
                 </div>
                 <div className="flex gap-1">
                   <p>Production:</p>
-                  <p className="flex gap-1">
+                  <p className="flex gap-1 flex-wrap">
                     {movieData?.production_companies.map((company, index) => (
                       <span key={company.id}>
                         <Link
                           className="hover:text-slate-400 transition-all"
-                          href={"/genres/" + company.name}>
+                          href={"/production/" + company.name}>
                           {company.name}
                         </Link>
                         {index < movieData.production_companies.length - 1 &&

@@ -18,13 +18,13 @@ interface Props {
 }
 export default function MovieCard({ data }: Props) {
   return (
-    <Card className="w-[calc(33.3%-12px)]">
-      <CardHeader>
+    <Card className="w-[calc(25%-12px)]">
+      <CardHeader className="min-h-[100px]">
         <CardTitle>{data.title}</CardTitle>
         <CardDescription></CardDescription>
       </CardHeader>
       <CardContent>
-        <div className="h-[600px] w-full">
+        <div className="h-[400px] w-full">
           <Image
             src={"https://image.tmdb.org/t/p/original/" + data.poster_path}
             className="w-full h-full select-none object-cover rounded-2.5xl"
