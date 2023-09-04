@@ -7,7 +7,10 @@ export interface IMovie {
   production_companies: ICompany[];
   id: number;
   imdb_id: string | undefined;
+  media_type: "tv" | "movie";
+  first_air_date: string;
   original_language: string;
+  original_name: string;
   original_title: string;
   overview: string;
   popularity: number;
