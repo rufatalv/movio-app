@@ -26,7 +26,6 @@ interface Props {
 const Slider: React.FC<Props> = ({ data, title }: Props) => {
   const [_, setInit] = useState<boolean>();
   const prevButtonRef = useRef(null);
-  console.log(data);
   const nextButtonRef = useRef(null);
   return (
     <Card className="container border-slate-400/50 mt-10 px-0 w-11/12 md:w-full lg:px-0 font-sf font-semibold">
