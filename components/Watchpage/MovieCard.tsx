@@ -17,7 +17,6 @@ interface Props {
   key: number | string;
 }
 export default function MovieCard({ data }: Props) {
-  console.log(data.media_type);
   
   return (
     <Card className="w-[calc(33.3%-12px)]">

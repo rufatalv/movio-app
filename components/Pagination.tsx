@@ -16,7 +16,6 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    // You can implement a callback function here to fetch data for the new page from your API.
   };
 
   return (

@@ -11,7 +11,8 @@ import Pagination from "@/components/Pagination";
 
 export default function WatchPage() {
   const [movieData, setMovieData] = useState<IMovie[]>([]);
-  const [totalPagesData, setTotalPagesData] = useState<number>(0);
+  const [totalPagesData, setTotalPagesData] = useState<number>(5);
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -19,8 +20,8 @@ export default function WatchPage() {
   const apiKey =
     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMGIyN2QzN2ExYmM1MDI4MGNlNmJlNDJkNjdhZTJiMiIsInN1YiI6IjYyOWM5N2VhOTkyZmU2MDA2NjgzMTE2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.i8SRfI-RxH1iiHMU2Bya4iPUUyezP-uqAqNYBvqiLwI";
 
-  const discoverUrl = `${baseApiUrl}/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc`;
-  const searchUrl = `${baseApiUrl}/search/multi?include_adult=false&language=en-US&page=1`;
+  const discoverUrl = `${baseApiUrl}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${currentPage}&sort_by=popularity.desc`;
+  const searchUrl = `${baseApiUrl}/search/multi?include_adult=false&language=en-US&page=${currentPage}`;
   const options = {
     method: "GET",
     headers: {
@@ -40,7 +41,7 @@ export default function WatchPage() {
       .then((response) => {
         console.log(response);
         setMovieData(response.results);
-        setTotalPagesData(response.pages_total);
+        setTotalPagesData(response.total_pages);
       })
       .then((response) => setLoading(false))
       .catch((err) => console.error(err));
@@ -60,7 +61,10 @@ export default function WatchPage() {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     setSearchTerm(data.movieName);
   };
-
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    console.log(`Page changed to ${newPage}`);
+  };
   return (
     <div className="container flex flex-col gap-4 mt-12 px-6 lg:px-0">
       <form
@@ -82,13 +86,17 @@ export default function WatchPage() {
       <div className="flex flex-wrap px-6 gap-2">
         {loading ? (
           <div className="h-[700px]">
-          <Preloader />
+            <Preloader />
           </div>
-          ) : (
-            movieData.map((movie, idx) => <MovieCard data={movie} key={idx} />)
-            )}
-          </div>
-      <Pagination totalPages={17} />
+        ) : (
+          movieData.map((movie, idx) => <MovieCard data={movie} key={idx} />)
+        )}
+      </div>
+      <Pagination
+        onPageChange={handlePageChange}
+        totalPages={20}
+        currentPage={currentPage}
+      />
     </div>
   );
 }
