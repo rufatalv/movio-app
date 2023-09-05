@@ -9,6 +9,9 @@ import { Suspense, useEffect, useState } from "react";
 export default function WatchMoviePage({ params }: { params: { id: string } }) {
   const [loading, setLoading] = useState(false);
   const [movieData, setMovieData] = useState<IMovie>();
+  const [availableSeasons, setAvailableSeasons] = useState<number[]>([]);
+  const [selectedSeason, setSelectedSeason] = useState<number>(1);
+
   const apiKey =
     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMGIyN2QzN2ExYmM1MDI4MGNlNmJlNDJkNjdhZTJiMiIsInN1YiI6IjYyOWM5N2VhOTkyZmU2MDA2NjgzMTE2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.i8SRfI-RxH1iiHMU2Bya4iPUUyezP-uqAqNYBvqiLwI";
 
@@ -23,32 +26,57 @@ export default function WatchMoviePage({ params }: { params: { id: string } }) {
   useEffect(() => {
     setLoading(true);
     fetch(apiUrl, options)
+      .then((response) => response.json())
       .then((response) => {
-        return response.json();
-      })
-      .then((response) => {
-        console.log(response);
         setMovieData(response);
+        if (response.seasons && response.seasons.length > 0) {
+          const today = moment();
+          const availableSeasonNumbers = response.seasons
+            .filter(
+              (season: any) =>
+                moment(season.air_date).isBefore(today) &&
+                season.season_number !== 0
+            )
+            .map((season: any) => season.season_number);
+          setAvailableSeasons(availableSeasonNumbers);
+          setSelectedSeason(availableSeasonNumbers[0]);
+        }
       })
-      .then((response) => setLoading(false))
+      .then(() => setLoading(false))
       .catch((err) => console.error(err));
   }, []);
+
   return (
     <div className="container mt-8 px-6">
       <Suspense fallback={<p>Loading...</p>}>
         <Card className="flex flex-col gap-6 border-slate-400/50 p-5">
-          {movieData?.imdb_id ? (
+          {movieData?.id ? (
             <div>
               <iframe
                 width="100%"
                 height="720px"
-                src={`https://vidsrc.to/embed/movie/${movieData?.imdb_id}`}
+                src={`https://vidsrc.to/embed/tv/${movieData?.id}/${selectedSeason}`}
                 allowFullScreen
                 title="Embedded Video"></iframe>
             </div>
           ) : (
             <div className="w-full h-[720px] bg-slate-400/50"></div>
           )}
+          <hr className="bg-primary border-primary border opacity-25 " />
+          <div className="flex gap-2">
+            {availableSeasons.map((seasonNumber) => (
+              <button
+                key={seasonNumber}
+                className={`${
+                  selectedSeason === seasonNumber
+                    ? "bg-primary text-white"
+                    : "bg-white text-primary"
+                } px-4 py-2 rounded-md transition-all`}
+                onClick={() => setSelectedSeason(seasonNumber)}>
+                Season {seasonNumber}
+              </button>
+            ))}
+          </div>
           <hr className="bg-primary border-primary border opacity-25 " />
           <div className="flex gap-5">
             <div className="h-[600px] rounded-lg overflow-hidden w-[400px]">
@@ -64,8 +92,12 @@ export default function WatchMoviePage({ params }: { params: { id: string } }) {
               />
             </div>
             <div className="w-1/2 flex gap-6 flex-col">
-              <h1 className="font-medium text-4xl">{movieData?.original_name}</h1>
-              <p className="font-medium text-2xl">{movieData?.first_air_date}</p>
+              <h1 className="font-medium text-4xl">
+                {movieData?.original_name}
+              </h1>
+              <p className="font-medium text-2xl">
+                {movieData?.first_air_date}
+              </p>
               <p className="font-medium text-base opacity-75">
                 {movieData?.overview}
               </p>

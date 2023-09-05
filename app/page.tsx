@@ -2,7 +2,10 @@ import Slider from "@/components/Slider";
 import { IMovie } from "@/types/types";
 import { Suspense } from "react";
 
-async function getMovieData(query: string): Promise<{ results: IMovie[] }> {
+async function getMovieData(
+  query: string,
+  type: string
+): Promise<{ results: IMovie[] }> {
   const options = {
     method: "GET",
     headers: {
@@ -13,7 +16,7 @@ async function getMovieData(query: string): Promise<{ results: IMovie[] }> {
   };
 
   const res = await fetch(
-    `https://api.themoviedb.org/3/movie/${query}?language=en-US&page=1`,
+    `https://api.themoviedb.org/3/${type}/${query}?language=en-US&page=1`,
     options
   );
 
@@ -22,22 +25,25 @@ async function getMovieData(query: string): Promise<{ results: IMovie[] }> {
 
 export default async function Home() {
   const [
-    { results: nowPlaying },
+    { results: nowPlayingMovies },
     { results: popularMovies },
     { results: topRatedMovies },
+    { results: topRatedSeries },
   ] = await Promise.all([
-    getMovieData("now_playing"),
-    getMovieData("popular"),
-    getMovieData("top_rated"),
+    getMovieData("now_playing", "movie"),
+    getMovieData("popular", "movie"),
+    getMovieData("top_rated", "movie"),
+    getMovieData("top_rated", "tv"),
   ]);
 
   return (
     <>
-        <section id="hero">
-          <Slider title="Now Playing" data={nowPlaying} />
-          <Slider title="Top Rated Movies" data={topRatedMovies} />
-          <Slider title="Popular Movies" data={popularMovies} />
-        </section>
+      <section id="hero">
+        <Slider title="Now Playing Movies" data={nowPlayingMovies} />
+        <Slider title="Top Rated Movies" data={topRatedMovies} />
+        <Slider title="Popular Movies" data={popularMovies} />
+        <Slider title="Top Rated TV Shows" data={topRatedSeries} />
+      </section>
     </>
   );
 }

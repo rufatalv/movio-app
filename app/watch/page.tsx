@@ -71,7 +71,7 @@ export default function WatchPage() {
           register={register}
           className=""
           htmlFor="movieName"
-          placeholder="Movie name"
+          placeholder="Type movie or TV Show Name"
           type="movieName"
           required
         />

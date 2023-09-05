@@ -10,6 +10,7 @@ export interface IMovie {
   media_type: "tv" | "movie";
   first_air_date: string;
   original_language: string;
+  number_of_seasons: number;
   original_name: string;
   original_title: string;
   overview: string;
