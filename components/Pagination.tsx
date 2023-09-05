@@ -1,11 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import Link from "next/link";
 
 interface PaginationProps {
   totalPages: number;
+  onPageChange: (newPage: number) => void;
+  currentPage: number;
+  maxPageLinks?: number;
 }
-
 const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -28,7 +29,11 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
               ? "bg-primary text-white"
               : "bg-gray-200 text-gray-700"
           } px-3 py-2 rounded-md`}>
-          <span className="cursor-pointer" onClick={() => handlePageChange(pageNumber)}>{pageNumber}</span>
+          <span
+            className="cursor-pointer"
+            onClick={() => handlePageChange(pageNumber)}>
+            {pageNumber}
+          </span>
         </div>
       ))}
     </div>
