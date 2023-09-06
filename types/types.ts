@@ -1,6 +1,7 @@
 export interface IMovie {
   adult: boolean;
   key: string | number;
+  name: string;
   backdrop_path: string;
   genre_ids: number[];
   genres: IGenre[];
