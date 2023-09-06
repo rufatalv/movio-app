@@ -73,7 +73,7 @@ const Slider: React.FC<Props> = ({ data, title }: Props) => {
                 />
                 <div className="absolute flex flex-col px-2 py-5 md:p-5 bottom-0 text-white z-[5]">
                   <h1 className="text-lg md:text-4xl">
-                    {item.original_title || item.original_name}
+                    {item.title || item.name}
                   </h1>
                   <h4 className="text-sm hidden md:flex md:text-lg font-light md:max-w-3xl">
                     {item.overview}
