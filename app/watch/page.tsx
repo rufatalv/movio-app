@@ -83,7 +83,7 @@ export default function WatchPage() {
           Search!
         </Button>
       </form>
-      <div className="flex flex-wrap px-6 -mx-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {loading ? (
           <div className="h-[700px]">
             <Preloader />
