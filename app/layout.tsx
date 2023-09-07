@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Suspense } from "react";
+import { SessionProvider } from "next-auth/react";
 
 export const Helvetica = localFont({
   src: [

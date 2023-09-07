@@ -2,6 +2,7 @@ import useNav from "@/hooks/useNav";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { UserProfile } from "./UserProfile";
+import { SessionProvider } from "next-auth/react";
 
 export default function Navlinks() {
   const { isOpen, setIsOpen } = useNav();
@@ -85,7 +86,9 @@ export default function Navlinks() {
             <Link href={"#"}>Top 100</Link>
           </li>
         </ul>
-        <UserProfile />
+        <SessionProvider>
+          <UserProfile />
+        </SessionProvider>
       </div>
     </>
   );
