@@ -32,7 +32,6 @@ export default function LoginPageContent() {
       redirect: false,
     }).then((callback) => {
       setLoading(false);
-      console.log(callback);
 
       if (callback?.ok) {
         toast.success("Logged in");
@@ -70,6 +69,7 @@ export default function LoginPageContent() {
             htmlFor="email"
             placeholder="Enter your email"
             type="email"
+            errors={errors}
             required
           />
           <Input
@@ -77,6 +77,7 @@ export default function LoginPageContent() {
             className=""
             register={register}
             required
+            errors={errors}
             htmlFor="password"
             placeholder="Enter your password"
             type="password"

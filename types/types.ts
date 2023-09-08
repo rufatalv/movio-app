@@ -1,3 +1,13 @@
+import { User } from "@prisma/client";
+
+export type SafeUser = Omit<
+  User,
+  "createdAt" | "updatedAt" | "emailVerified"
+> & {
+  createdAt: string;
+  updatedAt: string;
+  emailVerified: string | null;
+};
 export interface IMovie {
   adult: boolean;
   key: string | number;
