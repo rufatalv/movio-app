@@ -34,9 +34,8 @@ export default function LoginPageContent() {
       setLoading(false);
 
       if (callback?.ok) {
-        toast.success("Logged in");
+        toast.success("Successfully logged in!");
         router.push("/");
-        router.refresh();
       }
 
       if (callback?.error) {
@@ -47,7 +46,10 @@ export default function LoginPageContent() {
   const handleGithub = () => {
     signIn("github", { redirect: true, callbackUrl: "/" }).then(
       (res) => {
-        toast.success("Successfully logged in");
+        toast.success("Successfully logged in!");
+        if (res?.ok) {
+          router.push("/");
+        }
       },
       (err) => {
         toast.error(err.message);
@@ -86,10 +88,12 @@ export default function LoginPageContent() {
             Login
           </Button>
         </form>
-          <Button onClick={handleGithub} className="flex w-full mt-5 gap-4 text-xl py-6">
-            Login with Github
-            <FiGithub />
-          </Button>
+        <Button
+          onClick={handleGithub}
+          className="flex w-full mt-5 gap-4 text-xl py-6">
+          Login with Github
+          <FiGithub />
+        </Button>
       </CardContent>
     </Card>
   );

@@ -53,7 +53,7 @@ export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.NEXT_SECRET,
+  secret: 'ZEG2of3VFm6LgzcOsuR+YCxW7UUWCK5ux66FnTJ1oeg',
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       if (!user || user.email === null) {
