@@ -5,5 +5,5 @@ export default function LoginPage() {
     <div className="container mx-auto">
       <LoginPageContent />
     </div>
-  );
+  ); 
 }

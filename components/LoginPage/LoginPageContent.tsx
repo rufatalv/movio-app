@@ -85,11 +85,11 @@ export default function LoginPageContent() {
           <Button type="submit" className="text-xl py-6">
             Login
           </Button>
-          <Button onClick={handleGithub} className="flex gap-4 text-xl py-6">
+        </form>
+          <Button onClick={handleGithub} className="flex w-full mt-5 gap-4 text-xl py-6">
             Login with Github
             <FiGithub />
           </Button>
-        </form>
       </CardContent>
     </Card>
   );
