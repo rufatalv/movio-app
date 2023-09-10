@@ -8,6 +8,7 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import Preloader from "@/components/ui/loadingUI";
 import Pagination from "@/components/Pagination";
+import CustomButton from "@/components/CustomButton";
 
 export default function WatchPage() {
   const [movieData, setMovieData] = useState<IMovie[]>([]);
@@ -19,36 +20,30 @@ export default function WatchPage() {
   const baseApiUrl = "https://api.themoviedb.org/3";
   const apiKey =
     "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMGIyN2QzN2ExYmM1MDI4MGNlNmJlNDJkNjdhZTJiMiIsInN1YiI6IjYyOWM5N2VhOTkyZmU2MDA2NjgzMTE2NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.i8SRfI-RxH1iiHMU2Bya4iPUUyezP-uqAqNYBvqiLwI";
-
   const discoverUrl = `${baseApiUrl}/discover/movie?include_adult=false&include_video=false&language=en-US&page=${currentPage}&sort_by=popularity.desc`;
   const searchUrl = `${baseApiUrl}/search/multi?include_adult=false&language=en-US&page=${currentPage}`;
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: apiKey,
-    },
-  };
   useEffect(() => {
     const apiUrl = searchTerm
-      ? `${searchUrl}&query=${searchTerm}`
-      : discoverUrl;
+      ? `${searchUrl}&query=${searchTerm}&page=${currentPage}`
+      : `${discoverUrl}&page=${currentPage}`;
     setLoading(true);
-    fetch(apiUrl, options)
+    fetch(apiUrl, {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization: apiKey,
+      },
+    })
       .then((response) => {
         return response.json();
       })
       .then((response) => {
-        console.log(response);
         setMovieData(response.results);
         setTotalPagesData(response.total_pages);
       })
       .then((response) => setLoading(false))
       .catch((err) => console.error(err));
-  }, [searchTerm, discoverUrl, searchUrl]);
-  useEffect(() => {
-    console.log(searchTerm);
-  }, [searchTerm]);
+  }, [searchTerm, currentPage, discoverUrl, searchUrl]);
   const {
     register,
     handleSubmit,
@@ -63,29 +58,28 @@ export default function WatchPage() {
   };
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    console.log(`Page changed to ${newPage}`);
   };
   return (
     <div className="container flex flex-col gap-4 mt-12 px-6 lg:px-0">
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex items-center gap-6">
+        className="flex items-center gap-2">
         <Input
           id="movieName"
           register={register}
-          className=""
+          className="w-11/12"
           htmlFor="movieName"
           placeholder="Type movie or TV Show Name"
           type="movieName"
           required
         />
-        <Button type="submit" className="py-6 px-8 text-lg">
+        <CustomButton isLoading={false} type="submit" className="w-1/12 h-[58px] rounded-[8px] text-md font-normal">
           Search!
-        </Button>
+        </CustomButton>
       </form>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {loading ? (
-          <div className="h-[700px]">
+          <div className="h-screen">
             <Preloader />
           </div>
         ) : (
@@ -94,7 +88,7 @@ export default function WatchPage() {
       </div>
       <Pagination
         onPageChange={handlePageChange}
-        totalPages={20}
+        totalPages={totalPagesData}
         currentPage={currentPage}
       />
     </div>

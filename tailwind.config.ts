@@ -20,6 +20,10 @@ module.exports = {
     },
     extend: {
       colors: {
+        smokyblack: "#100c08",
+        afw: "#f2f3f4",
+        afb: "#537D8D",
+        gorange: "#F46036",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -75,5 +79,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), nextui()],
+  plugins: [
+    require("tailwindcss-animate"),
+    nextui(),
+    require("@tailwindcss/container-queries"),
+  ],
 };

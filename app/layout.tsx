@@ -52,7 +52,7 @@ export default async function RootLayout({
         <Header currentUser={currentUser} />
         <Suspense fallback={<h1 className="pt-20">Loading...</h1>}>
           <Providers>
-            <main className="relative z-[5] pt-20">{children}</main>
+            <main className="relative z-[5] pt-20 bg-afw">{children}</main>
           </Providers>
         </Suspense>
       </body>

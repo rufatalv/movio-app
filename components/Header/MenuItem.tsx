@@ -14,7 +14,7 @@ export default function MenuItem({ children, onClick }: Props) {
             px-4 py-2
             h-full
             w-full
-            hover:bg-neutral-100 
+            hover:bg-gray-300
                         transition-all duration-200
 
             ">

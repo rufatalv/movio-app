@@ -27,7 +27,6 @@ export default function WatchMoviePage({ params }: { params: { id: string } }) {
         return response.json();
       })
       .then((response) => {
-        console.log(response);
         setMovieData(response);
       })
       .then((response) => setLoading(false))

@@ -17,26 +17,17 @@ import {
 } from "./ui/card";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import clsx from "clsx";
 
 interface Props {
   data: IMovie[];
-  size?: "sm" | "md" | "lg" | undefined;
   title: string;
   className?: string;
 }
 
-const Slider: React.FC<Props> = ({ data, className, size, title }: Props) => {
+const SliderSmall: React.FC<Props> = ({ data, className, title }: Props) => {
   const [_, setInit] = useState<boolean>();
   const prevButtonRef = useRef(null);
   const nextButtonRef = useRef(null);
-
-  const maxSizeClass = clsx({
-    "md:max-w-2xl": size === "lg",
-    "md:max-w-xl": size === "md",
-    "md:max-w-md": size === "sm",
-    "md:max-w-3xl": size === undefined,
-  });
   return (
     <Card
       className={`bg-white/40 flex-1 border-slate-400/70 mt-10 font-sf font-semibold ${className}`}>
@@ -89,8 +80,7 @@ const Slider: React.FC<Props> = ({ data, className, size, title }: Props) => {
                   <h1 className="text-lg md:text-4xl">
                     {item.title || item.name}
                   </h1>
-                  <h4
-                    className={`text-sm hidden md:flex md:text-md font-light ${maxSizeClass}`}>
+                  <h4 className="text-sm hidden md:flex md:text-md font-light md:max-w-md">
                     {item.overview}
                   </h4>
                 </div>
@@ -116,4 +106,4 @@ const Slider: React.FC<Props> = ({ data, className, size, title }: Props) => {
   );
 };
 
-export default Slider;
+export default SliderSmall;

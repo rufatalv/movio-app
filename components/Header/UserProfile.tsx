@@ -44,7 +44,7 @@ export const UserProfile = ({ currentUser }: NavbarProps) => {
           className={`
             absolute 
             rounded-xl 
-            bg-white 
+            bg-afw 
             w-full
             overflow-hidden border border-slate-400/50 
             top-12

@@ -5,6 +5,24 @@ import Link from "next/link";
 import { UserProfile } from "./UserProfile";
 import { NavbarProps } from "./Header";
 
+const navLinks = [
+  {
+    id: 0,
+    href: "/",
+    title: "Home",
+  },
+  {
+    id: 1,
+    href: "/watch",
+    title: "Watch",
+  },
+  {
+    id: 2,
+    href: "/top100",
+    title: "Top 100",
+  },
+];
+
 export default function Navlinks({ currentUser }: NavbarProps) {
   const { isOpen, setIsOpen } = useNav();
 
@@ -77,15 +95,13 @@ export default function Navlinks({ currentUser }: NavbarProps) {
           isOpen ? "right-0" : "-right-full"
         } md:static flex py-20 px-8 transition-all duration-300 md:p-0 md:backdrop-blur-0 md:h-auto md:border-0 border-l h-full justify-end md:justify-normal backdrop-blur-[5px] md:w-full md:items-center gap-5 md:gap-0 flex-col-reverse md:flex-row `}>
         <ul className=" md:mx-auto flex flex-col md:flex-row  gap-5">
-          <li className="text-xl font-medium lowercase">
-            <Link href={"/"}>Home</Link>
-          </li>
-          <li className="text-xl font-medium lowercase">
-            <Link href={"/watch"}>Watch</Link>
-          </li>
-          <li className="text-xl font-medium lowercase">
-            <Link href={"#"}>Top 100</Link>
-          </li>
+          {navLinks.map((navLink) => (
+            <li
+              key={navLink.id}
+              className="text-2xl relative font-light lowercase">
+              <Link href={navLink.href}>{navLink.title}.</Link>
+            </li>
+          ))}
         </ul>
         <UserProfile currentUser={currentUser} />
       </div>

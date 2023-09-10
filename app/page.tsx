@@ -38,11 +38,31 @@ export default async function Home() {
 
   return (
     <>
-      <section id="hero">
-        <Slider title="Now Playing Movies" data={nowPlayingMovies} />
-        <Slider title="Top Rated Movies" data={topRatedMovies} />
-        <Slider title="Popular Movies" data={popularMovies} />
-        <Slider title="Top Rated TV Shows" data={topRatedSeries} />
+      <section id="hero" className="container overflow-hidden px-6 lg:px-0">
+        <Slider
+          className="md:w-full"
+          title="Now Playing Movies"
+          data={nowPlayingMovies}
+        />
+        <div className="flex gap-6">
+          <Slider
+            size="sm"
+            className="w-1/4"
+            title="Top Rated Movies"
+            data={topRatedMovies}
+          />
+          <Slider
+            size="sm"
+            className="w-1/4"
+            title="Popular Movies"
+            data={popularMovies}
+          />
+        </div>
+        <Slider
+          className="md:w-full"
+          title="Top Rated TV Shows"
+          data={topRatedSeries}
+        />
       </section>
     </>
   );
