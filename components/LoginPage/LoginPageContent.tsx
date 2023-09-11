@@ -9,12 +9,14 @@ import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { FiGithub } from "react-icons/fi";
 import CustomButton from "../CustomButton";
+import { BsGoogle } from "react-icons/bs";
 
 export default function LoginPageContent() {
   const [loginLoading, setLoginLoading] = useState(false);
   const [githubLoading, setGithubLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
   const router = useRouter();
-
+  
   const {
     register,
     handleSubmit,
@@ -46,12 +48,28 @@ export default function LoginPageContent() {
   };
   const handleGithub = () => {
     setGithubLoading(true);
-    signIn("github", { redirect: true, callbackUrl: "/" }).then(
+    signIn("github")
+      .then(
+        (res) => {
+          if (res?.ok) {
+            setGithubLoading(false);
+          }
+        },
+        (err) => {
+          toast.error(err.message);
+        }
+      )
+      .then(() => {
+        toast.success("Successfully logged in!");
+      });
+  };
+  const handleGoogle = () => {
+    signIn("google").then(
       (res) => {
         toast.success("Successfully logged in!");
         if (res?.ok) {
           router.push("/");
-          setGithubLoading(false);
+          setGoogleLoading(false);
         }
       },
       (err) => {
@@ -100,6 +118,13 @@ export default function LoginPageContent() {
           className="flex w-full mt-5 gap-4 text-xl py-6">
           Login with Github
           <FiGithub />
+        </CustomButton>{" "}
+        <CustomButton
+          isLoading={googleLoading}
+          onClick={handleGoogle}
+          className="flex w-full mt-5 gap-4 text-xl py-6">
+          Login with Google
+          <BsGoogle />
         </CustomButton>
       </CardContent>
     </Card>
