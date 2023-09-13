@@ -53,14 +53,16 @@ export const UserProfile = ({ currentUser }: NavbarProps) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem>Profile</MenuItem>
+                <Link href={"/user/profile"}>
+                  <MenuItem>Profile</MenuItem>
+                </Link>
                 <MenuItem>Settings</MenuItem>
                 <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
               </>
             ) : (
               <>
                 <MenuItem onClick={() => signIn()}>Log in</MenuItem>
-                <Link href={'/auth/register'}>
+                <Link href={"/auth/register"}>
                   <MenuItem>Register</MenuItem>
                 </Link>
               </>

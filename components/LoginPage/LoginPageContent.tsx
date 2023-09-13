@@ -16,7 +16,7 @@ export default function LoginPageContent() {
   const [githubLoading, setGithubLoading] = useState(false);
   const [googleLoading, setGoogleLoading] = useState(false);
   const router = useRouter();
-  
+
   const {
     register,
     handleSubmit,
@@ -48,7 +48,7 @@ export default function LoginPageContent() {
   };
   const handleGithub = () => {
     setGithubLoading(true);
-    signIn("github")
+    signIn("github", { redirect: true, callbackUrl: "/" })
       .then(
         (res) => {
           if (res?.ok) {
@@ -64,7 +64,7 @@ export default function LoginPageContent() {
       });
   };
   const handleGoogle = () => {
-    signIn("google").then(
+    signIn("google", { redirect: true, callbackUrl: "/" }).then(
       (res) => {
         toast.success("Successfully logged in!");
         if (res?.ok) {
