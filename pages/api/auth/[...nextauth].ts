@@ -1,6 +1,7 @@
 import NextAuth, { AuthOptions } from "next-auth";
 import GithubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
+import GoogleProvider from "next-auth/providers/google";
 import bcrypt from "bcrypt";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 
@@ -11,6 +12,10 @@ export const authOptions: AuthOptions = {
     GithubProvider({
       clientId: process.env.GITHUB_ID as string,
       clientSecret: process.env.GITHUB_SECRET as string,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
     CredentialsProvider({
       name: "credentials",
@@ -53,21 +58,13 @@ export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: 'ZEG2of3VFm6LgzcOsuR+YCxW7UUWCK5ux66FnTJ1oeg',
+  secret: "ZEG2of3VFm6LgzcOsuR+YCxW7UUWCK5ux66FnTJ1oeg",
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
       if (!user || user.email === null) {
         console.error("User not found or email is null");
-        return false; 
+        return false;
       }
-      const update = await prisma.user.update({
-        where: {
-          email: user.email,
-        },
-        data: {
-          image: user.image, 
-        },
-      });
       return true;
     },
   },

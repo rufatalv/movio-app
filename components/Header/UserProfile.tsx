@@ -6,6 +6,7 @@ import MenuItem from "./MenuItem";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
 import { signIn, signOut } from "next-auth/react";
 import { NavbarProps } from "./Header";
+import Link from "next/link";
 
 export const UserProfile = ({ currentUser }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -52,16 +53,18 @@ export const UserProfile = ({ currentUser }: NavbarProps) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem>Profile</MenuItem>
+                <Link href={"/user/profile"}>
+                  <MenuItem>Profile</MenuItem>
+                </Link>
                 <MenuItem>Settings</MenuItem>
                 <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
               </>
             ) : (
               <>
                 <MenuItem onClick={() => signIn()}>Log in</MenuItem>
-                <MenuItem onClick={() => router.push("/auth/register")}>
-                  Register
-                </MenuItem>
+                <Link href={"/auth/register"}>
+                  <MenuItem>Register</MenuItem>
+                </Link>
               </>
             )}
           </div>
