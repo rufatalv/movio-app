@@ -76,7 +76,7 @@ const Slider: React.FC<Props> = ({ data, className, size, title }: Props) => {
               className="rounded-[10px] overflow-hidden"
               key={item.id}>
               <div className="w-full h-[350px] md:h-[470px] relative">
-                <Image
+                <img
                   src={
                     "https://image.tmdb.org/t/p/original/" + item.backdrop_path
                   }

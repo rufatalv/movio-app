@@ -24,7 +24,7 @@ export default function MovieCard({ data }: Props) {
       </CardHeader>
       <CardContent className=" mt-auto">
         <div className=" w-full min-h-[350px]">
-          <Image
+          <img
             src={"https://image.tmdb.org/t/p/original/" + data.poster_path}
             className="w-full h-auto"
             width={500}

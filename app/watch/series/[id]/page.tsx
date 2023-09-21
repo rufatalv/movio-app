@@ -80,7 +80,7 @@ export default function WatchMoviePage({ params }: { params: { id: string } }) {
           <hr className="bg-primary border-primary border opacity-25 " />
           <div className="flex gap-5">
             <div className="h-[600px] rounded-lg overflow-hidden w-[400px]">
-              <Image
+              <img
                 src={
                   "https://image.tmdb.org/t/p/original/" +
                   movieData?.poster_path

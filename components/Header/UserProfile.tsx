@@ -23,7 +23,7 @@ export const UserProfile = ({ currentUser }: NavbarProps) => {
         className="px-4 py-2 flex gap-2 items-center hover:shadow-md transition-all duration-300 cursor-pointer border border-slate-400/50 rounded-xl md:rounded-full">
         {currentUser && (
           <>
-            <Image
+            <img
               width={24}
               height={24}
               className="rounded-full"
