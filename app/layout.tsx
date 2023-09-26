@@ -5,7 +5,6 @@ import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { Suspense } from "react";
 import { SessionProvider } from "next-auth/react";
-import getCurrentUser from "./actions/getCurrentUser";
 
 export const Helvetica = localFont({
   src: [
@@ -29,10 +28,11 @@ export const Helvetica = localFont({
 });
 import { NextUIProvider } from "@nextui-org/react";
 import { Providers } from "@/components/providers";
+import AuthProvider from "./AuthProvider";
 
 export const metadata: Metadata = {
   icons: {
-    icon: '/favicon.svg',
+    icon: "/favicon.svg",
   },
   title: "movio.",
   description:
@@ -44,18 +44,19 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const currentUser = await getCurrentUser();
   return (
-    <html lang="en">
-      <body className={Helvetica.className}>
-        <Toaster />
-        <Header currentUser={currentUser} />
-        <Suspense fallback={<h1 className="pt-20">Loading...</h1>}>
-          <Providers>
-            <main className="relative z-[5] pt-20 bg-afw">{children}</main>
-          </Providers>
-        </Suspense>
-      </body>
-    </html>
+    <AuthProvider>
+      <html lang="en">
+        <body className={Helvetica.className}>
+          <Toaster />
+          <Header />
+          <Suspense fallback={<h1 className="pt-20">Loading...</h1>}>
+            <Providers>
+              <main className="relative z-[5] pt-20 bg-afw">{children}</main>
+            </Providers>
+          </Suspense>
+        </body>
+      </html>
+    </AuthProvider>
   );
 }
