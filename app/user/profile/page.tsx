@@ -10,8 +10,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { getServerSession } from "next-auth";
 
-export default function TabsDemo() {
+export default async function TabsDemo() {
+  const session = await getServerSession();
+  console.log(session?.user?.name)
   return (
     <Card className="container px-6 lg:px-0 border-slate-400/70 mt-12">
       <Tabs defaultValue="account" className="p-5">
@@ -31,11 +34,11 @@ export default function TabsDemo() {
             <CardContent className="space-y-2">
               <div className="space-y-1">
                 <Label htmlFor="name">Name</Label>
-                <Input id="name" defaultValue="Pedro Duarte" />
+                <Input id="name" defaultValue={session?.user?.name!} />
               </div>
               <div className="space-y-1">
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" defaultValue="@peduarte" />
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" defaultValue={session?.user?.email!}  />
               </div>
             </CardContent>
             <CardFooter>
