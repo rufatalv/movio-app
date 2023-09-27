@@ -11,10 +11,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { getServerSession } from "next-auth";
-
 export default async function TabsDemo() {
   const session = await getServerSession();
-  console.log(session?.user?.name)
+  console.log(session?.user?.name);
+  
   return (
     <Card className="container px-6 lg:px-0 border-slate-400/70 mt-12">
       <Tabs defaultValue="account" className="p-5">
@@ -38,7 +38,7 @@ export default async function TabsDemo() {
               </div>
               <div className="space-y-1">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" defaultValue={session?.user?.email!}  />
+                <Input id="email" defaultValue={session?.user?.email!} />
               </div>
             </CardContent>
             <CardFooter>
@@ -66,7 +66,7 @@ export default async function TabsDemo() {
               </div>
             </CardContent>
             <CardFooter>
-              <Button>Save password</Button>
+              {/* <Button onClick={submitData(data)}>Save password</Button> */}
             </CardFooter>
           </Card>
         </TabsContent>
