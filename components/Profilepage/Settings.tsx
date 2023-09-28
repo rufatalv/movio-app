@@ -12,31 +12,44 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { User } from "next-auth";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 export default function Settings({ user }: { user: User }) {
-  const updateUser = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.currentTarget);
-
-    const body = {
-      name: formData.get("name"),
-    };
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm();
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const res = await fetch("/api/user", {
       method: "PUT",
-      body: JSON.stringify(body),
+      body: JSON.stringify(data),
       headers: {
         "Content-Type": "application/json",
       },
     });
-    console.log(JSON.stringify(body))
-
+    console.log(JSON.stringify(data))
     await res.json();
+  };
+  const updateUser = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // const res = await fetch("/api/user", {
+    //   method: "PUT",
+    //   body: JSON.stringify(body),
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    // console.log(JSON.stringify(body))
+
+    // await res.json();
   };
 
   return (
     <Card className="container px-6 lg:px-0 border-slate-400/70 mt-12">
-      <form onSubmit={updateUser}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Tabs defaultValue="account" className="p-5">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="account">Account</TabsTrigger>
@@ -54,11 +67,19 @@ export default function Settings({ user }: { user: User }) {
               <CardContent className="space-y-2">
                 <div className="space-y-1">
                   <Label htmlFor="name">Name</Label>
-                  <Input id="name" defaultValue={user?.name!} />
+                  <Input
+                    {...register("name")}
+                    id="name"
+                    defaultValue={user?.name!}
+                  />
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" defaultValue={user?.email!} />
+                  <Input
+                    id="email"
+                    {...register("email")}
+                    defaultValue={user?.email!}
+                  />
                 </div>
               </CardContent>
               <CardFooter>

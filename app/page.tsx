@@ -59,7 +59,7 @@ export default async function Home() {
           />
         </div>
         <Slider
-          className="md:w-full"
+          className="md:w-full mb-20"
           title="Top Rated TV Shows"
           data={topRatedSeries}
         />
