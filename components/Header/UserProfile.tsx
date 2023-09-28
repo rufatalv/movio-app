@@ -10,7 +10,6 @@ export const UserProfile = () => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const { data: session, status } = useSession();
-  console.log(session);
   const currentUser = session?.user;
   const ref = useOutsideClick(() => {
     setIsOpen(false);
