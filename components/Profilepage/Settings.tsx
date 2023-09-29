@@ -29,7 +29,7 @@ export default function Settings({ user }: { user: User }) {
         "Content-Type": "application/json",
       },
     });
-    console.log(JSON.stringify(data))
+    console.log(JSON.stringify(data));
     await res.json();
   };
   const updateUser = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -99,11 +99,17 @@ export default function Settings({ user }: { user: User }) {
               <CardContent className="space-y-2">
                 <div className="space-y-1">
                   <Label htmlFor="current">Current password</Label>
-                  <Input id="current" type="password" />
+                  <Input
+                    {...register("currentPassword")}
+                    id="current"
+                    type="password"
+                  />
                 </div>
                 <div className="space-y-1">
                   <Label htmlFor="new">New password</Label>
-                  <Input id="new" type="password" />
+                  <Input
+                  {...register("newPassword")}
+                  id="new" type="password" />
                 </div>
               </CardContent>
               <CardFooter>
