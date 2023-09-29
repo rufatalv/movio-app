@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +13,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { User } from "next-auth";
+import { User } from "@prisma/client";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 export default function Settings({ user }: { user: User }) {
@@ -22,29 +24,25 @@ export default function Settings({ user }: { user: User }) {
     formState: { errors },
   } = useForm();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const res = await fetch("/api/user", {
-      method: "PUT",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    console.log(JSON.stringify(data));
-    await res.json();
-  };
-  const updateUser = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    try {
+      const res = await fetch("/api/user", {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    // const res = await fetch("/api/user", {
-    //   method: "PUT",
-    //   body: JSON.stringify(body),
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    // console.log(JSON.stringify(body))
-
-    // await res.json();
+      if (res.ok) {
+        const result = await res.json();
+        console.log("User updated:", result);
+      } else {
+        const errorData = await res.json();
+        console.error("Error updating user:", errorData);
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   return (
@@ -81,6 +79,27 @@ export default function Settings({ user }: { user: User }) {
                     defaultValue={user?.email!}
                   />
                 </div>
+                <div className="space-y-1 flex justify-between gap-4">
+                  <div className="flex flex-col w-full gap-1">
+                    <Label htmlFor="email">Image</Label>
+                    <Input
+                      id="image"
+                      {...register("image")}
+                      defaultValue={user?.image!}
+                    />
+                    <Label className="mt-2" htmlFor="email">
+                      Bio
+                    </Label>
+                    <Input
+                      id="bio"
+                      {...register("bio")}
+                      defaultValue={user?.bio!}
+                    />
+                  </div>
+                  <div className="bg-smokyblack/10 w-fit p-2 border border-slate/60 rounded-lg">
+                    <img src={user?.image! || ""} width={128} height={128} />
+                  </div>
+                </div>
               </CardContent>
               <CardFooter>
                 <Button type="submit">Save changes</Button>
@@ -108,8 +127,10 @@ export default function Settings({ user }: { user: User }) {
                 <div className="space-y-1">
                   <Label htmlFor="new">New password</Label>
                   <Input
-                  {...register("newPassword")}
-                  id="new" type="password" />
+                    {...register("newPassword")}
+                    id="new"
+                    type="password"
+                  />
                 </div>
               </CardContent>
               <CardFooter>

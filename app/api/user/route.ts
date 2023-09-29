@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
 import { authOptions } from "../auth/[...nextauth]/route";
 import bcrypt from "bcrypt";
+
 export async function PUT(req: Request) {
   const session = await getServerSession(authOptions);
   const currentUserEmail = session?.user?.email!;
@@ -17,21 +18,28 @@ export async function PUT(req: Request) {
       email: currentUserEmail,
     },
   });
+
   if (!user) {
-    // Handle the case where the user is not found
     return NextResponse.json({ error: "User not found" }, { status: 404 });
   }
-  const passwordMatches = await bcrypt.compare(
-    currentPassword,
-    user.hashedPassword!
-  );
-  if (!passwordMatches) {
-    return NextResponse.json(
-      { error: "Invalid current password" },
-      { status: 401 }
+
+  let newPasswordHash;
+
+  if (newPassword) {
+    const passwordMatches = await bcrypt.compare(
+      currentPassword,
+      user.hashedPassword!
     );
+
+    if (!passwordMatches) {
+      return NextResponse.json(
+        { error: "Invalid credentials!" },
+        { status: 401 }
+      );
+    }
+
+    newPasswordHash = await bcrypt.hash(newPassword, 10);
   }
-  const newPasswordHash = await bcrypt.hash(newPassword, 10);
 
   const userUpdated = await prisma.user.update({
     where: {
@@ -43,7 +51,6 @@ export async function PUT(req: Request) {
     },
   });
 
-   console.log(user);
 
   return NextResponse.json(userUpdated);
 }

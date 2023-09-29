@@ -12,7 +12,7 @@ datasource db {
 
 model Account {
   id                 String    @id @default(auto()) @map("_id") @db.ObjectId
-  userId             String
+  userId             String    @db.ObjectId
   providerType       String
   providerId         String
   providerAccountId  String
@@ -28,7 +28,7 @@ model Account {
 
 model Session {
   id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  userId       String
+  userId       String   @db.ObjectId
   expires      DateTime
   sessionToken String   @unique
   accessToken  String   @unique
@@ -43,6 +43,7 @@ model User {
   email          String?   @unique
   emailVerified  DateTime?
   image          String?
+  bio            String?
   hashedPassword String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
