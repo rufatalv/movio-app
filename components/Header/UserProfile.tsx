@@ -62,7 +62,7 @@ export const UserProfile = () => {
             ) : (
               <>
                 <MenuItem onClick={() => signIn()}>Log in</MenuItem>
-                <Link href={"/auth/register"}>
+                <Link href={"/user/register"}>
                   <MenuItem>Register</MenuItem>
                 </Link>
               </>

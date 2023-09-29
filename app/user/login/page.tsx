@@ -1,4 +1,5 @@
+import LoginPageContent from "@/components/LoginPage/LoginPageContent";
+
 export default function page() {
-    return <div> LoginPage
-    </div>
- }
+  return <LoginPageContent />;
+}

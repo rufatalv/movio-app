@@ -27,10 +27,10 @@ export default function RegisterPageContent() {
     setPageLoading(true);
     setRequestLoading(true);
     axios
-      .post("/api/register", data)
+      .post("/api/user/register", data)
       .then(() => {
         toast.success("Registered!");
-        router.push("/auth/login");
+        router.push("/user/register");
       })
       .catch((error: any) => {
         toast.error("Error! Check your credentials!");
