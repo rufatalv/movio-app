@@ -1,4 +1,5 @@
 import useNav from "@/hooks/useNav";
+import { IUser } from "@/types/types";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { UserProfile } from "./UserProfile";
@@ -21,7 +22,7 @@ const navLinks = [
   },
 ];
 
-export default function Navlinks() {
+export default function Navlinks({ currentUser }: IUser) {
   const { isOpen, setIsOpen } = useNav();
 
   const variant = isOpen ? "opened" : "closed";
@@ -101,7 +102,7 @@ export default function Navlinks() {
             </li>
           ))}
         </ul>
-        <UserProfile />
+        <UserProfile currentUser={currentUser} />
       </div>
     </>
   );

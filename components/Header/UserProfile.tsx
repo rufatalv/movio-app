@@ -1,16 +1,16 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { useOutsideClick } from "@/hooks/useOutsideClick";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { IUser } from "@/types/types";
+import { signIn, signOut } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import MenuItem from "./MenuItem";
 
-export const UserProfile = () => {
+export const UserProfile = ({ currentUser }: IUser) => {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
-  const { data: session, status } = useSession();
-  const currentUser = session?.user;
   const ref = useOutsideClick(() => {
     setIsOpen(false);
   });
@@ -18,7 +18,9 @@ export const UserProfile = () => {
     setIsOpen((value) => !value);
   }, []);
   return (
-    <div ref={ref} className="flex -order-1 md:order-1 relative border-slate-400/50">
+    <div
+      ref={ref}
+      className="flex -order-1 md:order-1 relative border-slate-400/50">
       <div
         onClick={toggleOpen}
         className="px-4 py-2 flex gap-2 items-center hover:shadow-md transition-all duration-300 cursor-pointer border border-slate-400/50 rounded-xl md:rounded-full">

@@ -14,7 +14,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { User } from "@prisma/client";
+import { useRouter } from "next/navigation";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function Settings({ user }: { user: User }) {
   const {
@@ -23,6 +25,7 @@ export default function Settings({ user }: { user: User }) {
     watch,
     formState: { errors },
   } = useForm();
+  const router = useRouter();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       const res = await fetch("/api/user", {
@@ -36,6 +39,8 @@ export default function Settings({ user }: { user: User }) {
       if (res.ok) {
         const result = await res.json();
         console.log("User updated:", result);
+        toast.success('Updated successfully!')
+        router.refresh();
       } else {
         const errorData = await res.json();
         console.error("Error updating user:", errorData);

@@ -8,6 +8,9 @@ export type SafeUser = Omit<
   updatedAt: string;
   emailVerified: string | null;
 };
+export interface IUser {
+  currentUser?: SafeUser | null;
+}
 export interface IMovie {
   adult: boolean;
   key: string | number;

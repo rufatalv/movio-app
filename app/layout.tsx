@@ -29,6 +29,7 @@ export const Helvetica = localFont({
 import { NextUIProvider } from "@nextui-org/react";
 import { Providers } from "@/components/providers";
 import AuthProvider from "./AuthProvider";
+import getCurrentUser from "@/actions/getCurrentUser";
 
 export const metadata: Metadata = {
   icons: {
@@ -44,15 +45,18 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const currentUser = await getCurrentUser();
   return (
     <AuthProvider>
       <html lang="en">
         <body className={Helvetica.className}>
           <Toaster />
-          <Header />
+          <Header currentUser={currentUser} />
           <Suspense fallback={<h1 className="pt-20">Loading...</h1>}>
             <Providers>
-              <main className="relative min-h-screen z-[5] pt-20 bg-afw">{children}</main>
+              <main className="relative min-h-screen z-[5] pt-20 bg-afw">
+                {children}
+              </main>
             </Providers>
           </Suspense>
         </body>
