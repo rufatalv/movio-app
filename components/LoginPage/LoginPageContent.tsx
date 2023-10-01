@@ -37,7 +37,6 @@ export default function LoginPageContent() {
       setLoginLoading(false);
 
       if (callback?.ok) {
-        toast.success("Successfully logged in!");
         router.push("/");
       }
 

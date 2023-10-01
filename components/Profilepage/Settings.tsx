@@ -15,10 +15,14 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { User } from "@prisma/client";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import Preloader from "../ui/loadingUI";
+import CustomButton from "../CustomButton";
 
 export default function Settings({ user }: { user: User }) {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -27,6 +31,7 @@ export default function Settings({ user }: { user: User }) {
   } = useForm();
   const router = useRouter();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    setIsLoading(true)
     try {
       const res = await fetch("/api/user", {
         method: "PUT",
@@ -39,19 +44,22 @@ export default function Settings({ user }: { user: User }) {
       if (res.ok) {
         const result = await res.json();
         console.log("User updated:", result);
-        toast.success('Updated successfully!')
+        setIsLoading(false)
+        toast.success("Updated successfully!");
         router.refresh();
       } else {
         const errorData = await res.json();
+        setIsLoading(false)
         console.error("Error updating user:", errorData);
       }
     } catch (error) {
+      setIsLoading(false)
       console.error("An error occurred:", error);
     }
   };
 
   return (
-    <Card className="container px-6 lg:px-0 border-slate-400/70 mt-12">
+    <Card className="container relative px-6 lg:px-0 border-slate-400/70 mt-12">
       <form onSubmit={handleSubmit(onSubmit)}>
         <Tabs defaultValue="account" className="p-5">
           <TabsList className="grid w-full grid-cols-2">
@@ -107,7 +115,7 @@ export default function Settings({ user }: { user: User }) {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit">Save changes</Button>
+                <CustomButton className="px-4 py-2 h-10 text-sm font-medium" isLoading={isLoading} type="submit">Save changes</CustomButton>
               </CardFooter>
             </Card>
           </TabsContent>
@@ -139,7 +147,7 @@ export default function Settings({ user }: { user: User }) {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button type="submit">Save password</Button>
+                <CustomButton isLoading={isLoading} type="submit">Save password</CustomButton>
               </CardFooter>
             </Card>
           </TabsContent>
