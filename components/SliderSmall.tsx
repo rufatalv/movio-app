@@ -91,7 +91,7 @@ const SliderSmall: React.FC<Props> = ({ data, className, title }: Props) => {
                         ? `/watch/series/${item.id}`
                         : `/watch/movie/${item.id}`
                     }>
-                    <Button className="text-lg flex items-center gap-4">
+                    <Button className="text-sm md:text-lg flex items-center gap-4">
                       Watch <BsArrowRight />
                     </Button>
                   </Link>

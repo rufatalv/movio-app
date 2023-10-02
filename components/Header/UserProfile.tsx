@@ -50,7 +50,7 @@ export const UserProfile = ({ currentUser }: IUser) => {
             bg-afw 
             w-full
             overflow-hidden border border-slate-400/50 
-            top-12
+            top-16
         `}>
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
@@ -58,7 +58,9 @@ export const UserProfile = ({ currentUser }: IUser) => {
                 <Link href={"/user/profile"}>
                   <MenuItem>Profile</MenuItem>
                 </Link>
-                <MenuItem>Settings</MenuItem>
+                <Link href={"/user/profile/settings"}>
+                  <MenuItem>Settings</MenuItem>
+                </Link>
                 <MenuItem onClick={() => signOut()}>Sign Out</MenuItem>
               </>
             ) : (

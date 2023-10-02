@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { Card } from "@/components/ui/card";
 import { IMovie } from "@/types/types";
@@ -63,7 +65,7 @@ export default function WatchMoviePage({ params }: { params: { id: string } }) {
             <div className="w-full h-[720px] bg-slate-400/50"></div>
           )}
           <hr className="bg-primary border-primary border opacity-25 " />
-          <div className="flex gap-2">
+          <div className="flex flex-wrap justify-center gap-2">
             {availableSeasons.map((seasonNumber) => (
               <button
                 key={seasonNumber}
@@ -136,7 +138,7 @@ export default function WatchMoviePage({ params }: { params: { id: string } }) {
                 <div className="flex gap-1">
                   <p>Release:</p>
                   <p className="flex gap-1">
-                    {moment(movieData?.release_date).format("YYYY, MMM DD")}
+                    {moment(movieData?.first_air_date).format("YYYY, MMM DD")}
                   </p>
                 </div>
                 <div className="flex gap-1">

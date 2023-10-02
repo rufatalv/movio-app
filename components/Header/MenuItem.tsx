@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 
 type Props = {
@@ -10,14 +10,7 @@ export default function MenuItem({ children, onClick }: Props) {
   return (
     <div
       onClick={onClick}
-      className="
-            px-4 py-2
-            h-full
-            w-full
-            hover:bg-gray-300
-                        transition-all duration-200
-
-            ">
+      className=" px-4 py-2 h-full w-full hover:bg-gray-300 transition-all duration-200">
       {children}
     </div>
   );

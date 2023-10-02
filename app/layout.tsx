@@ -30,6 +30,7 @@ import { NextUIProvider } from "@nextui-org/react";
 import { Providers } from "@/components/providers";
 import AuthProvider from "./AuthProvider";
 import getCurrentUser from "@/actions/getCurrentUser";
+import useAuth from "@/hooks/useAuth";
 
 export const metadata: Metadata = {
   icons: {
@@ -46,21 +47,22 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
+  useAuth.setState({
+    user: currentUser!,
+  });
   return (
-    <AuthProvider>
-      <html lang="en">
-        <body className={Helvetica.className}>
-          <Toaster />
-          <Header currentUser={currentUser} />
-          <Suspense fallback={<h1 className="pt-20">Loading...</h1>}>
-            <Providers>
-              <main className="relative min-h-screen z-[5] pt-20 bg-afw">
-                {children}
-              </main>
-            </Providers>
-          </Suspense>
-        </body>
-      </html>
-    </AuthProvider>
+    <html lang="en">
+      <body className={Helvetica.className}>
+        <Toaster />
+        <Header currentUser={currentUser} />
+        <Suspense fallback={<h1 className="pt-20">Loading...</h1>}>
+          <Providers>
+            <main className="relative min-h-screen z-[5] pt-20 bg-afw">
+              {children}
+            </main>
+          </Providers>
+        </Suspense>
+      </body>
+    </html>
   );
 }

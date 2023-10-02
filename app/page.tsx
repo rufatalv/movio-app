@@ -44,16 +44,16 @@ export default async function Home() {
           title="Now Playing Movies"
           data={nowPlayingMovies}
         />
-        <div className="flex gap-6">
+        <div className="flex flex-row md:flex-row gap-6">
           <Slider
             size="sm"
-            className="w-1/4"
+            className="w-full md:w-1/4"
             title="Top Rated Movies"
             data={topRatedMovies}
           />
           <Slider
             size="sm"
-            className="w-1/4"
+            className="w-full md:w-1/4"
             title="Popular Movies"
             data={popularMovies}
           />

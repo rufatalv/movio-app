@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { IMovie } from "@/types/types";
@@ -34,7 +35,7 @@ const Slider: React.FC<Props> = ({ data, className, size, title }: Props) => {
   const maxSizeClass = clsx({
     "md:max-w-2xl": size === "lg",
     "md:max-w-xl": size === "md",
-    "md:max-w-md": size === "sm",
+    "md:max-w-sm": size === "sm",
     "md:max-w-3xl": size === undefined,
   });
   return (
@@ -62,7 +63,7 @@ const Slider: React.FC<Props> = ({ data, className, size, title }: Props) => {
           loop={true}
           effect="fade"
           autoplay={{
-            delay: 1500,
+            delay: 3500,
           }}
           className=""
           onInit={() => setInit(true)}
@@ -85,7 +86,7 @@ const Slider: React.FC<Props> = ({ data, className, size, title }: Props) => {
                   height={500}
                   alt="image"
                 />
-                <div className="absolute flex flex-col px-2 py-5 md:p-5 bottom-0 text-white z-[5]">
+                <div className="absolute flex flex-col px-4 py-5 md:p-5 bottom-0 text-white z-[5]">
                   <h1 className="text-lg md:text-4xl">
                     {item.title || item.name}
                   </h1>
@@ -94,14 +95,14 @@ const Slider: React.FC<Props> = ({ data, className, size, title }: Props) => {
                     {item.overview}
                   </h4>
                 </div>
-                <div className="absolute flex flex-col px-2 py-5 md:p-5 bottom-0 right-0 text-white z-[5]">
+                <div className="absolute flex flex-col px-2 py-5 md:p-5 bottom-0 right-2 text-white z-[5]">
                   <Link
                     href={
                       item.original_name && item.original_name
                         ? `/watch/series/${item.id}`
                         : `/watch/movie/${item.id}`
                     }>
-                    <Button className="text-lg flex items-center gap-4">
+                    <Button className="text-sm md:text-lg flex items-center gap-4">
                       Watch <BsArrowRight />
                     </Button>
                   </Link>

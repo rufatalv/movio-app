@@ -4,5 +4,6 @@ export default function ClientOnly({
 }: {
   children: React.ReactNode;
 }) {
+  
   return <>{children}</>;
 }

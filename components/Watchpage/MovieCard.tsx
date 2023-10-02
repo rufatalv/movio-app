@@ -1,17 +1,15 @@
+/* eslint-disable @next/next/no-img-element */
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
-  CardTitle,
+  CardTitle
 } from "@/components/ui/card";
-
 import { Button } from "@/components/ui/button";
-import { BsArrowRight } from "react-icons/bs";
 import { IMovie } from "@/types/types";
-import Image from "next/image";
 import Link from "next/link";
+import { BsArrowRight } from "react-icons/bs";
 interface Props {
   data: IMovie;
   key: number | string;
