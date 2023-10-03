@@ -38,17 +38,18 @@ model Session {
 }
 
 model User {
-  id             String    @id @default(auto()) @map("_id") @db.ObjectId
+  id             String          @id @default(auto()) @map("_id") @db.ObjectId
   name           String?
-  email          String?   @unique
+  email          String?         @unique
   emailVerified  DateTime?
   image          String?
   bio            String?
   hashedPassword String?
-  createdAt      DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
   accounts       Account[]
   sessions       Session[]
+  bookmarks      FavoriteMovie[]
 }
 
 model VerificationRequest {
@@ -60,4 +61,11 @@ model VerificationRequest {
   updatedAt  DateTime @updatedAt
 
   @@unique([identifier, token])
+}
+
+model FavoriteMovie {
+  id             String @id @default(auto()) @map("_id") @db.ObjectId
+  bookmarkType   String
+  bookmarkedBy   User   @relation(fields: [bookmarkedById], references: [id])
+  bookmarkedById String @db.ObjectId
 }

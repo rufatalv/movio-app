@@ -1,10 +1,11 @@
+import getCurrentUser from "@/actions/getCurrentUser";
 import Header from "@/components/Header/Header";
+import { Providers } from "@/components/providers";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
+import { Suspense } from "react";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
-import { Suspense } from "react";
-import { SessionProvider } from "next-auth/react";
 
 export const Helvetica = localFont({
   src: [
@@ -26,11 +27,6 @@ export const Helvetica = localFont({
   ],
   variable: "--font-helvetica",
 });
-import { NextUIProvider } from "@nextui-org/react";
-import { Providers } from "@/components/providers";
-import AuthProvider from "./AuthProvider";
-import getCurrentUser from "@/actions/getCurrentUser";
-import useAuth from "@/hooks/useAuth";
 
 export const metadata: Metadata = {
   icons: {
@@ -47,9 +43,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const currentUser = await getCurrentUser();
-  useAuth.setState({
-    user: currentUser!,
-  });
+
   return (
     <html lang="en">
       <body className={Helvetica.className}>

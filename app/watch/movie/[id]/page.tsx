@@ -1,4 +1,4 @@
-"use client";
+  "use client";
 import { Card } from "@/components/ui/card";
 import { IMovie } from "@/types/types";
 import moment from "moment";
@@ -63,7 +63,7 @@ export default function WatchMoviePage({ params }: { params: { id: string } }) {
               />
             </div>
             <div className="w-1/2 flex gap-6 flex-col">
-              <h1 className="font-medium text-4xl">{movieData?.title}</h1>
+              <h1 className="font-medium text-4xl flex justify-between w-full">{movieData?.title}</h1>
               <p className="font-medium text-2xl">{movieData?.release_date}</p>
               <p className="font-medium text-base opacity-75">
                 {movieData?.overview}
