@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 import { Card, CardBody, CardHeader } from "@nextui-org/react";
 import { User } from "@prisma/client";
@@ -12,7 +13,7 @@ export default function Dashboard({ user }: { user: User }) {
         </CardHeader>
         <CardBody>
           <div className="flex gap-4">
-            <img src={user.image} className="rounded-2xl shadow-lg" />
+            <img src={user.image!} alt="" className="rounded-2xl shadow-lg" />
             <div className="flex flex-col gap-2">
               <div className="flex flex-col gap-2">
                 <h4 className="font-bold text-2xl">Name: {user.name}</h4>
