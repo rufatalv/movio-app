@@ -31,7 +31,7 @@ export default function Settings({ user }: { user: User }) {
   } = useForm();
   const router = useRouter();
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    setIsLoading(true)
+    setIsLoading(true);
     try {
       const res = await fetch("/api/user", {
         method: "PUT",
@@ -44,16 +44,16 @@ export default function Settings({ user }: { user: User }) {
       if (res.ok) {
         const result = await res.json();
         console.log("User updated:", result);
-        setIsLoading(false)
+        setIsLoading(false);
         toast.success("Updated successfully!");
         router.refresh();
       } else {
         const errorData = await res.json();
-        setIsLoading(false)
+        setIsLoading(false);
         console.error("Error updating user:", errorData);
       }
     } catch (error) {
-      setIsLoading(false)
+      setIsLoading(false);
       console.error("An error occurred:", error);
     }
   };
@@ -115,7 +115,12 @@ export default function Settings({ user }: { user: User }) {
                 </div>
               </CardContent>
               <CardFooter>
-                <CustomButton className="px-4 py-2 h-10 text-sm font-medium" isLoading={isLoading} type="submit">Save changes</CustomButton>
+                <CustomButton
+                  className="px-4 py-2 h-10 text-sm font-medium"
+                  isLoading={isLoading}
+                  type="submit">
+                  Save changes
+                </CustomButton>
               </CardFooter>
             </Card>
           </TabsContent>
@@ -147,7 +152,9 @@ export default function Settings({ user }: { user: User }) {
                 </div>
               </CardContent>
               <CardFooter>
-                <CustomButton isLoading={isLoading} type="submit">Save password</CustomButton>
+                <CustomButton isLoading={isLoading} type="submit">
+                  Save password
+                </CustomButton>
               </CardFooter>
             </Card>
           </TabsContent>
